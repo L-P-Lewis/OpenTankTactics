@@ -3,10 +3,10 @@
 
 pub mod board_object;
 pub mod board;
+pub mod game;
 
 
-use std::{cmp::{max, min}};
-use board::Board;
+use std::{cmp::{max, min}, collections::HashMap};
 use board_object::{BoardObject, INPASSABLE};
 
 
@@ -21,6 +21,14 @@ pub struct  Game {
     pub moves: Vec<Action>
 }
 
+// Represents a game board, consisting of living players and board objects
+#[derive(Debug, Clone)]
+pub struct Board {
+    pub size_x : u16,
+    pub size_y : u16,
+    pub players : HashMap<u8, PlayerTank>, // Players are referenced by their ID
+    pub objects : HashMap<BoardPos, BoardObject> // Board objects are refenced by their position, since they are static
+}
 
 
 pub enum AccessError {

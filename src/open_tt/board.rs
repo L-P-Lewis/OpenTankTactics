@@ -3,14 +3,7 @@ use std::{cmp::{max, min}, collections::HashMap};
 use super::*;
 
 
-// Represents a game board, consisting of living players and board objects
-#[derive(Debug, Clone)]
-pub struct Board {
-    pub size_x : u16,
-    pub size_y : u16,
-    pub players : HashMap<u8, PlayerTank>, // Players are referenced by their ID
-    pub objects : HashMap<BoardPos, BoardObject> // Board objects are refenced by their position, since they are static
-}
+
 
 impl Board {
     // Internal function, check if position is in bounds
@@ -246,7 +239,7 @@ impl Board {
         return Ok(());
     }
 
-    fn try_do_action(&mut self, action : Action) -> Result<(), ActionError> {
+    pub fn try_do_action(&mut self, action : &Action) -> Result<(), ActionError> {
         match action {
             Action::TankGiveAP(p_id, t_pos) => self.apply_give_ap_action(&p_id, &t_pos),
             Action::TankMove(p_id, t_pos) => self.apply_move_action(&p_id, &t_pos),
