@@ -12,6 +12,7 @@ pub const WATER :u8= INPASSABLE;
 
 
 // Represents a semi-static board object
+#[derive(Debug, Clone)]
 pub struct BoardObject {
     pub position : BoardPos,
     pub type_flags : u8
