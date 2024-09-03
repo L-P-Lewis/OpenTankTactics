@@ -8,6 +8,7 @@ pub mod game;
 
 use std::{cmp::{max, min}, collections::HashMap};
 use board_object::{BoardObject, INPASSABLE};
+use serde::{Deserialize, Serialize};
 
 
 const PLAYER_MOVE_DIST :u16= 1;
@@ -61,7 +62,7 @@ pub enum AccessError {
 
 
 // Represents a position on the game board as a tuple of values x and y
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Serialize, Deserialize)]
 pub struct BoardPos(pub u16, pub u16);
 
 impl BoardPos {
@@ -75,7 +76,7 @@ impl BoardPos {
 
 
 // Represents a player controlled tank, mostly a data container for position and attributes
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct PlayerTank {
     pub position : BoardPos,
     pub hitpoints : u8,
