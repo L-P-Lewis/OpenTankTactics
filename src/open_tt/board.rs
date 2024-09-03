@@ -247,7 +247,7 @@ impl Board {
         }
     }
 
-    fn get_game_state(self) -> GameState {
+    pub fn get_game_state(&self) -> GameState {
         if self.players.len() == 1 {
             // Hack to get the only value of a size one iterrator
             let _ = self.players.keys().map(|id| return GameState::GameWon(*id));

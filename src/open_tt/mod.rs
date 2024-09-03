@@ -18,7 +18,18 @@ const PLAYER_SHOOT_DIST :u16= 3;
 pub struct  Game {
     pub starting_board: Board,
     pub current_board: Board,
-    pub moves: Vec<Action>
+    pub moves: Vec<Action>,
+    pub game_state: GameState
+}
+
+impl Default for Game {
+    fn default() -> Self {
+        Self { 
+            starting_board: Board { size_x: 0, size_y: 0, players: HashMap::new(), objects: HashMap::new() }, 
+            current_board: Board { size_x: 0, size_y: 0, players: HashMap::new(), objects: HashMap::new() }, 
+            moves: Vec::new(), 
+            game_state: GameState::InProgress }
+    }
 }
 
 // Represents a game board, consisting of living players and board objects
@@ -28,6 +39,18 @@ pub struct Board {
     pub size_y : u16,
     pub players : HashMap<u8, PlayerTank>, // Players are referenced by their ID
     pub objects : HashMap<BoardPos, BoardObject> // Board objects are refenced by their position, since they are static
+}
+
+
+pub struct Map {
+    pub items : Vec<MapItem>,
+    pub size_x : u16,
+    pub size_y : u16
+}
+
+
+pub enum MapItem {
+    BoardObjectItem(u8, BoardPos)
 }
 
 
@@ -57,6 +80,12 @@ pub struct PlayerTank {
     pub position : BoardPos,
     pub hitpoints : u8,
     pub action_points : u8,
+}
+
+impl Default for PlayerTank {
+    fn default() -> Self {
+        Self { position: BoardPos(0, 0), hitpoints: 3, action_points: 0}
+    }
 }
 
 
@@ -96,7 +125,9 @@ pub enum Action {
 }
 
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum GameState {
+    Pregame,
     InProgress, 
     GameWon(u8) // State representing a won game, the parameter is the id of the winning player
 }
