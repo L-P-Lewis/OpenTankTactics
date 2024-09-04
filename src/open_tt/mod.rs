@@ -43,13 +43,14 @@ pub struct Board {
 }
 
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Map {
     pub items : Vec<MapItem>,
     pub size_x : u16,
     pub size_y : u16
 }
 
-
+#[derive(Debug, Serialize, Deserialize)]
 pub enum MapItem {
     BoardObjectItem(u8, BoardPos)
 }
